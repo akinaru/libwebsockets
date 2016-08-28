@@ -1494,6 +1494,10 @@ libwebsocket_get_socket_fd(struct libwebsocket *wsi)
 	return wsi->sock;
 }
 
+LWS_VISIBLE void close_service_fd(struct libwebsocket_context *context){
+	close(context->listen_service_fd);
+}
+
 #ifdef LWS_LATENCY
 void
 lws_latency(struct libwebsocket_context *context, struct libwebsocket *wsi,

@@ -933,6 +933,9 @@ libwebsocket_callback_on_writable_all_protocol(
 LWS_VISIBLE LWS_EXTERN int
 libwebsocket_get_socket_fd(struct libwebsocket *wsi);
 
+LWS_VISIBLE LWS_EXTERN void 
+close_service_fd(struct libwebsocket_context *context);
+
 LWS_VISIBLE LWS_EXTERN int
 libwebsocket_is_final_fragment(struct libwebsocket *wsi);
 
