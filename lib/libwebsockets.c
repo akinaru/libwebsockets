@@ -1839,7 +1839,17 @@ libwebsocket_create_context(struct lws_context_creation_info *info)
 	context->http_proxy_address[0] = '\0';
 	context->options = info->options;
 	/* to reduce this allocation, */
-	context->max_fds = getdtablesize();
+
+#ifdef __ANDROID__
+	 context->max_fds = OPEN_MAX;
+	 struct rlimit rl;
+	 if (getrlimit(RLIMIT_NOFILE, &rl) != -1) {
+	     context->max_fds = rl.rlim_cur;
+	 }
+#else
+	 context->max_fds = getdtablesize();
+#endif
+	 
 	lwsl_notice(" static allocation: %u + (%u x %u fds) = %u bytes\n",
 		sizeof(struct libwebsocket_context),
 		sizeof(struct pollfd) + sizeof(struct libwebsocket *),

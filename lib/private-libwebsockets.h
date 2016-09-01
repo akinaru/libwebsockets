@@ -53,6 +53,10 @@
 #endif
 #include <stdarg.h>
 
+#ifdef __ANDROID__
+#include <sys/resource.h>
+#endif
+
 #include <sys/stat.h>
 
 #if defined(WIN32) || defined(_WIN32)
